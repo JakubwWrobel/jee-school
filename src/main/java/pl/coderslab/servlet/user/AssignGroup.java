@@ -1,4 +1,4 @@
-package pl.coderslab.servlet;
+package pl.coderslab.servlet.user;
 
 import pl.coderslab.dao.UserDAO;
 import pl.coderslab.dao.UserGroupDAO;
@@ -17,12 +17,12 @@ import java.util.List;
 
 @WebServlet(name = "assignGroup", urlPatterns = "/assignGroup")
 public class AssignGroup extends HttpServlet {
-    private static User user;
-    private static UserGroup userGroup;
-    private static UserGroupDAO userGroupDAO = new UserGroupDAO();
-    private static List<UserGroup> listOfGroups = userGroupDAO.showAll();
-    private static UserDAO userDAO = new UserDAO();
-    private static List<User> listOfUsers = userDAO.findAll();
+    private  User user;
+    private  UserGroup userGroup;
+    private  UserGroupDAO userGroupDAO = new UserGroupDAO();
+    private  List<UserGroup> listOfGroups = userGroupDAO.showAll();
+    private  UserDAO userDAO = new UserDAO();
+    private  List<User> listOfUsers = userDAO.findAll();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

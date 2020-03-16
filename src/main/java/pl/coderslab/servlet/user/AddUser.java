@@ -1,4 +1,4 @@
-package pl.coderslab.servlet;
+package pl.coderslab.servlet.user;
 
 import add.Checking;
 import pl.coderslab.dao.UserDAO;

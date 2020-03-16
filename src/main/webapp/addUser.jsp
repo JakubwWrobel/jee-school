@@ -16,29 +16,32 @@
 </head>
 <body>
 <div class="back">
-    <h1 id="user">Dodaj użytkownika</h1>
+    <h1><label id="user">Dodaj użytkownika</label></h1>
     <form method="post" action="/adduser">
-        <p>
-        <p>What's your name?</p>
-        <input id="userName" name="userName" value="${fn:escapeXml(param.userName)}">
-        <span class="error">${messages.userName}</span>
-        </p>
-        <p>
-        <p>What's your email?</p>
-        <input id="email" name="email" value="${fn:escapeXml(param.email)}">
-        <span class="error">${messages.email}</span>
-        </p>
-        <p>
-        <p>What's your password?</p>
-        <input id="password" type="password" name="password" value="${fn:escapeXml(param.password)}">
-        <span class="error">${messages.password}</span>
-        </p>
-        <p><input type="submit"></p>
-        <p>
-            <span class="success">${messages.success}</span>
-            <span class="emailExists">${messages.emailExists}</span>
-        </p>
+        <div id="main">
+            <p>
+            <p>What's your name?</p>
+            <input id="userName" name="userName" value="${fn:escapeXml(param.userName)}">
+            <span class="error">${messages.userName}</span>
+            </p>
+            <p>
+            <p>What's your email?</p>
+            <input id="email" name="email" value="${fn:escapeXml(param.email)}">
+            <span class="error">${messages.email}</span>
+            </p>
+            <p>
+            <p>What's your password?</p>
+            <input id="password" type="password" name="password" value="${fn:escapeXml(param.password)}">
+            <span class="error">${messages.password}</span>
+            </p>
+            <p><input type="submit"></p>
+            <p>
+                <span class="success">${messages.success}</span>
+                <span class="emailExists">${messages.emailExists}</span>
+            </p>
+        </div>
     </form>
+
 </div>
 </body>
 </html>

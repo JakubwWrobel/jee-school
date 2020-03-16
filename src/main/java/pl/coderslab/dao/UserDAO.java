@@ -150,12 +150,12 @@ public class UserDAO {
     }
 
 
-    public User[] findAllByGroupId(int userInput) {
+    public List<User> findAllByGroupId(int userInput) {
         try (Connection conn = DbUtil.getConnection()) {
             statement = conn.prepareStatement(FIND_ALL_USERS_BY_USER_GROUP);
             statement.setInt(1, userInput);
             ResultSet resultSet = statement.executeQuery();
-            User[] users = new User[0];
+            List<User> users = new ArrayList<>();
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
@@ -166,7 +166,7 @@ public class UserDAO {
                 } else {
                     user.setUserGroup(null);
                 }
-                users = addToArray(user, users);
+                users.add(user);
             }
             return users;
         } catch (SQLException e) {

@@ -31,10 +31,10 @@ public class SolutionDAO {
     private static final String FIND_ALL_SOLUTIONS_BY_EXERCISE_ID =
             "SELECT * FROM solution WHERE exercise_id = ?";
     private static final String UPDATE_DESCRIPTION_BY_EXERCISE_ID =
-            "UPDATE solution SET description = ?, updated = NOW() WHERE exercise_id = ? AND users_id = ?";
+            "UPDATE solution SET description = ?, updated = NOW() WHERE id = ? AND users_id = ?";
     private static final String FIND_ALL_SOLUTIONS_BY_USER_ID_AND_EXERCISE_ID =
             "SELECT * FROM solution WHERE users_id = ? AND exercise_id = ?";
-    private static final String READ_RECENT_QUERY = "SELECT id, created, updated, description, users_id FROM solution ORDER BY updated LIMIT ?;";
+    private static final String READ_RECENT_QUERY = "SELECT id, created, updated, description, users_id, exercise_id FROM solution ORDER BY updated LIMIT ?;";
 
     private PreparedStatement statement;
     private static ExerciseDAO exerciseDAO = new ExerciseDAO();
@@ -66,11 +66,11 @@ public class SolutionDAO {
         }
     }
 
-    public void resolveExercise(User user, String description, Exercise exercise) {
+    public void resolveExercise(User user, String description, Solution solution) {
         try (Connection conn = DbUtil.getConnection()) {
             statement = conn.prepareStatement(UPDATE_DESCRIPTION_BY_EXERCISE_ID);
             statement.setString(1, description);
-            statement.setInt(2, exercise.getId());
+            statement.setInt(2, solution.getId());
             statement.setInt(3, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -115,6 +115,27 @@ public class SolutionDAO {
             if (resultSet.next()) {
                 Solution solution = new Solution();
                 solution.setId(resultSet.getInt("id"));
+                solution.setId(resultSet.getInt("id"));
+                solution.setCreated(resultSet.getTimestamp("created"));
+                solution.setUpdated(resultSet.getTimestamp("updated"));
+                solution.setDescription(resultSet.getString("description"));
+//TAK LEPIEJ CZY
+                if (resultSet.getInt("users_id") != 0) {
+                    solution.setUsers_id(userDAO.read(resultSet.getInt("users_id")));
+                } else {
+                    solution.setUsers_id(null);
+                }
+/*                int userGroupId = resultSet.getInt("user_group_id");
+                UserGroup userGroup = userGroupDAO.read(userGroupId);
+                user.setUserGroup(userGroup);*/
+//MOZE TAK??
+                int exerciseID = resultSet.getInt("exercise_id");
+                Exercise exercise = exerciseDAO.read(exerciseID);
+                if (exercise == null) {
+                    solution.setExercise_id(null);
+                } else {
+                    solution.setExercise_id(exerciseDAO.read(resultSet.getInt("exercise_id")));
+                }
                 return solution;
             } else {
                 return null;
@@ -145,8 +166,8 @@ public class SolutionDAO {
             while (resultSet.next()) {
                 Solution solution = new Solution();
                 solution.setId(resultSet.getInt("id"));
-                solution.setCreated(resultSet.getTime("created"));
-                solution.setUpdated(resultSet.getTime("updated"));
+                solution.setCreated(resultSet.getTimestamp("created"));
+                solution.setUpdated(resultSet.getTimestamp("updated"));
                 solution.setDescription(resultSet.getString("description"));
 //TAK LEPIEJ CZY
                 if (resultSet.getInt("users_id") != 0) {
@@ -198,6 +219,11 @@ public class SolutionDAO {
                 } else {
                     solution.setUsers_id(null);
                 }
+                if (resultSet.getInt("exercise_id") != 0) {
+                    solution.setExercise_id(exerciseDAO.read(resultSet.getInt("exercise_id")));
+                } else {
+                    solution.setUsers_id(null);
+                }
                 // todo finish read other properties
 
                 result.add(solution);
@@ -208,12 +234,12 @@ public class SolutionDAO {
 
         return result;
     }
-    public Solution[] findAllByUserId(int userInput) {
+    public List<Solution> findAllByUserId(int userInput) {
         try (Connection conn = DbUtil.getConnection()) {
             statement = conn.prepareStatement(FIND_ALL_SOLUTIONS_BY_USER_ID);
             statement.setInt(1, userInput);
             ResultSet resultSet = statement.executeQuery();
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions =new ArrayList<>();
             if (resultSet.next() == false) {
                 return null;
             } else {
@@ -223,8 +249,9 @@ public class SolutionDAO {
                     solution.setDescription(resultSet.getString("description"));
                     solution.setExercise_id(exerciseDAO.read(resultSet.getInt("exercise_id")));
                     solution.setUsers_id(userDAO.read(resultSet.getInt("users_id")));
-                    solution.setCreated(resultSet.getTime("created"));
-                    solutions = addToArray(solutions, solution);
+                    solution.setCreated(resultSet.getTimestamp("created"));
+                    solution.setUpdated(resultSet.getTimestamp("updated"));
+                    solutions.add(solution);
                 } while (resultSet.next());
             }
             return solutions;

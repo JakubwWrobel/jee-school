@@ -1,4 +1,4 @@
-package pl.coderslab.servlet;
+package pl.coderslab.servlet.user;
 
 import com.sun.mail.imap.protocol.INTERNALDATE;
 import pl.coderslab.dao.UserDAO;

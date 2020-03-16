@@ -1,4 +1,4 @@
-package pl.coderslab.servlet;
+package pl.coderslab.servlet.user;
 
 import com.mysql.cj.PreparedQuery;
 import pl.coderslab.dao.UserDAO;

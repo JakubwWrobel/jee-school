@@ -16,18 +16,23 @@
 </head>
 <body>
 <div class="back">
-    <h1><label id="user">Panel Użytkownika</label></h1>
+    <h1><label id="user">Panel użytkownika</label></h1>
     <form action="/usergroup/showallgroups" method="post">
         <table border="1px" cellpadding="3" cellspacing="2" align="center">
             <thead>
             <th>ID</th>
             <th>Title</th>
+            <th>LINK</th>
             </thead>
             <tbody align="center">
             <c:forEach items="${groups}" var="group">
+                <c:url var="thisPage" value="/usergroup/allusersingroup">
+                    <c:param name="id" value="${group.id}"></c:param>
+                </c:url>
                 <tr>
                     <td>${group.id}</td>
                     <td>${group.userGroupName}</td>
+                    <td><a href="<c:out value="${thisPage}"/>">${group.id}</a> </td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -91,14 +91,16 @@ public class UserGroupDAO {
         }
     }
 
-    public void delete(int userInput) {
+    public boolean delete(int userInput) {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_USERGROUP_QUERY);
             statement.setInt(1, userInput);
             statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println("Błąd połączenia z bazą");
             e.getErrorCode();
+            return false;
         }
     }
 

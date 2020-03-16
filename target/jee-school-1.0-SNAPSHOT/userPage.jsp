@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/CSS/userpage.css">
 </head>
 <body>
-<div class="back"   >
+<div class="back">
     <h1><label id="user">Panel użytkownika</label></h1>
     <div  id="main">
         <div id="firstDiv">
@@ -29,7 +29,10 @@
                 <a href="/deleteuser" id="deleteUser">Usuń użytkownika</a>
             </div>
             <div>
-                <a href="/updateuser" id="updateUser">Zaaktualizuj użytkownika</a>
+                <a href="/updateuser" id="updateUser">Zaktualizuj użytkownika</a>
+            </div>
+            <div>
+                <a href="/showallusers" id="showUsers">Pokaż wszystkich użytkowników</a>
             </div>
         </div>
         <div id="secDiv">
@@ -65,13 +68,13 @@
                 <a href="/solution/addsolution" id="addsolution">Dodaj rozwiązanie</a>
             </div>
             <div>
-                <a href="/solution/assignexercisetosolution">Przypisz zadanie do rozwiązania</a>
+                <a href="/solution/assignexercisetosolution" id="assignSolution">Przypisz zadanie do rozwiązania</a>
             </div>
             <div>
                 <a href="/solution/deletesolution" id="deletesolution">Usuń rozwiązanie</a>
             </div>
             <div>
-                <a href="/updateuser" id="updateUser6">Zaaktualizuj użytkownika</a>
+                <a href="/solution/assignusertoexercise" id="updateUser6">Przypisz użytkownika do rozwiązania</a>
             </div>
         </div>
     </div>
@@ -84,15 +87,22 @@
             <th>Solution Updated</th>
             <th>Solution Description</th>
             <th>User ID Assigned</th>
+            <th>Exercise ID Assigned</th>
+            <th>LINK</th>
             </thead>
             <tbody>
             <c:forEach var="sol" items="${solutions}">
+                <c:url var="thisURL" value="/solution/showsolution">
+                    <c:param name="id" value="${sol.id}"/>
+                </c:url>
                 <tr id="tr">
                     <td>${sol.id}</td>
-                    <td><a href="#"></a>${ sol.created }</td>
+                    <td><a href="/solution/deletesolution"></a>${ sol.created }</td>
                     <td>${sol.updated}</td>
                     <td>${sol.description}</td>
                     <td>${ sol.users_id.id }</td>
+                    <td>${ sol.exercise_id.id }</td>
+                    <td><a href="<c:out value="${thisURL}"/>">${sol.id}</a></td>
                 </tr>
             </c:forEach>
             </tbody>

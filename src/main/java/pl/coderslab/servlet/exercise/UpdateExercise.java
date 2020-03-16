@@ -39,7 +39,7 @@ public class UpdateExercise extends HttpServlet {
             exercise.setId(exerciseId);
 
             exerciseDAO.update(exercise);
-            request.setAttribute("message", "Grupa została zaaktualizowana");
+            request.setAttribute("message", "Zadanie zostało zaaktualizowane");
             request.getRequestDispatcher("/updateExercise.jsp").forward(request, response);
         }
 

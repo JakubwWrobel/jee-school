@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "MainServlet", urlPatterns = "/mainservlet")
+@WebServlet(name = "MainServlet", urlPatterns = "/paneladmin")
 public class MainServlet extends HttpServlet {
     private int numberSolutions;
-    SolutionDAO solutionDAO = new SolutionDAO();
+    private SolutionDAO solutionDAO = new SolutionDAO();
+    private List<Solution> solutions;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -26,7 +27,7 @@ public class MainServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Solution> solutions = solutionDAO.findRecent(this.numberSolutions);
+        solutions = solutionDAO.findRecent(this.numberSolutions);
         request.setAttribute("solutions", solutions);
 
         request.getRequestDispatcher("/userPage.jsp").forward(request, response);

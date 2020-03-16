@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="back">
-    <h1 id="user">Przypisz użytkownika do grupy</h1>
+    <h1><label id="user">Przypisz użytkownika do grupy</label></h1>
     <form name="userGroup" method="post" action="assignGroup">
         <p id="p1">Wybierz użytkownika</p>
         <select class="form-select-button" style="width: 250px" name="userId" size="10">
@@ -36,29 +36,18 @@
         <p>${empty message ? "" : message}</p>
     </form>
 </div>
-
-<%--
-<%
-
-    ArrayList list = UserGroupDAO.showAll();
-    int size = list.size();
-
-%>
-
-<select name="someName">
-
-    <%for (int i=0;i<size;i++)
-    {
-
-        YourClass obj = (YourClass)list.get(i);
-
-    %>
-
-    <option value="<%=obj.getValue()%>" ><%=obj.getText()%></option>
-
-    <%}%>
---%>
-
-</select>
 </body>
 </html>
+
+
+<%--<%--        <select class="form-select-button" style="width: 250px" name="exerciseId" size="10">
+    <c:forEach items="${listOfExercises}" var="exercise">
+        <option value="${exercise.id}">${exercise.title}</option>
+    </c:forEach>
+</select>
+<p id="p2">Wybierz rozwiązanie</p>
+<select class="form-select-button" style="width: 250px" name="solutionId" size="10">
+    <c:forEach items="${listOfSolutions}" var="solution">
+        <option value="${solution.id}">${solution.id}</option>
+    </c:forEach>
+</select>--%>--%>

@@ -1,5 +1,6 @@
 package pl.coderslab.servlet.solution;
 
+import com.sun.mail.imap.protocol.INTERNALDATE;
 import pl.coderslab.dao.ExerciseDAO;
 import pl.coderslab.dao.SolutionDAO;
 import pl.coderslab.model.Exercise;
@@ -17,19 +18,33 @@ import java.util.List;
 
 @WebServlet(name = "AssignExerciseToSolution", urlPatterns = "/solution/assignexercisetosolution")
 public class AssignExerciseToSolution extends HttpServlet {
-    private static SolutionDAO solutionDAO = new SolutionDAO();
-    private static ExerciseDAO exerciseDAO = new ExerciseDAO();
-    private static List<Solution> listOfSolutions = solutionDAO.findAll();
-    private static List<Exercise> listOfExercises = exerciseDAO.findAll();
+    private  SolutionDAO solutionDAO = new SolutionDAO();
+    private  ExerciseDAO exerciseDAO = new ExerciseDAO();
+    private  List<Solution> listOfSolutions;
+    private  List<Exercise> listOfExercises;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Integer exerciseId = Integer.parseInt(request.getParameter("exerciseId"));
+        Integer solutionId = Integer.parseInt(request.getParameter("solutionId"));
 
+        Solution solution = solutionDAO.read(solutionId);
+        solutionDAO.insertExerciseIntoSolution(solution,exerciseId);
+        request.setAttribute("message", "Zadanie zostało przypisane do rozwiązania");
+
+        listOfSolutions = solutionDAO.findAll();
+        listOfExercises = exerciseDAO.findAll();
+        request.setAttribute("listOfSolutions", listOfSolutions);
+        request.setAttribute("listOfExercises", listOfExercises);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/assignExerciseToSolution.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        listOfSolutions = solutionDAO.findAll();
+        listOfExercises = exerciseDAO.findAll();
         request.setAttribute("listOfSolutions", listOfSolutions);
         request.setAttribute("listOfExercises", listOfExercises);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/assignexercisetosolution.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/assignExerciseToSolution.jsp");
         dispatcher.forward(request, response);
     }
 }
