@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="back">
-    <h1><label id="user">Panel Użytkownika</label></h1>
+    <h1><label id="user">Panel użytkownika</label></h1>
     <form name="userGroup" action="/solution/assignusertoexercise" method="post">
         <p id="p1">Wybierz Użytkownika</p>
         <select select class="form-select-button" style="width: 350px" name="userId" size="10">

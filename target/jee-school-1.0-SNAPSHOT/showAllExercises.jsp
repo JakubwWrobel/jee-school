@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="back">
-    <h1><label id="user">Panel Użytkownika</label></h1>
+    <h1><label id="user">Panel użytkownika</label></h1>
     <form action="exercise/showallexercises" method="post">
         <table border="1px" cellpadding="3" cellspacing="2" align="center">
             <thead>

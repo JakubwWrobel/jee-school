@@ -22,12 +22,6 @@
             <div>
                 <a href="/user/showusersolution">Pokaż wszystkie zdania użytkownika</a>
             </div>
-            <div>
-                <a href="/user/showusersolution">Dodaj rozwiązanie</a>
-            </div>
-            <div>
-                <a href="/deleteuser" id="deleteUser">Edytuj rozwiązanie</a>
-            </div>
         </div>
     </div>
 </div>

@@ -24,7 +24,7 @@
                     <option value="${user.id}" selected="selected" name="user">${user.username}</option>
                 </c:forEach>
             </select>
-            <p><input type="submit"></p>
+            <p><input type="submit" formtarget="_self"></p>
             <p> ${empty message ? "" : message}</p>
         </form>
     </c:if>
